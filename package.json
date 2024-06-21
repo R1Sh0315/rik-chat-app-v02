@@ -2,11 +2,16 @@
   "name": "rca",
   "version": "1.0.0",
   "description": "simple application which provides web services to facilitate group chat and manage data.",
-  "main": "index.js",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd rca-be && npm run dev",
+    "client": "cd rca-fe && npm start"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
 }
