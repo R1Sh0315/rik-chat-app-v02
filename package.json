@@ -1,0 +1,12 @@
+{
+  "name": "rca",
+  "version": "1.0.0",
+  "description": "simple application which provides web services to facilitate group chat and manage data.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
