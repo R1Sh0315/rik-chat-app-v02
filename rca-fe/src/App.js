@@ -1,24 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import SigninPageComponent from "./components/signinPage";
+import SignupPageComponent from "./components/signupPage";
+import DashboardComponent from "./components/dashboardPage";
+import { AuthProvider } from "./service/AuthContext";
+import ProtectedRoute from './service/ProtectedRoute'
+
+import "./App.css";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <AuthProvider>
+        <div className="app">
+          <div className="right-section">Rik Chat App</div>
+          <div className="left-section">
+            <Routes>
+              <Route path="/signup" element={<SignupPageComponent />} />
+              <Route path="/signin" element={<SigninPageComponent />} />
+              <Route path="/" element={<SignupPageComponent />} />
+              <Route
+                path="/dashboard"
+                element={
+                  <ProtectedRoute>
+                    <DashboardComponent />
+                  </ProtectedRoute>
+                }
+              />
+            </Routes>
+          </div>
+        </div>
+      </AuthProvider>
+    </Router>
   );
 }
 

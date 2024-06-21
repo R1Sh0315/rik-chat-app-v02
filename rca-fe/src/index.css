@@ -1,13 +1,79 @@
+@import url("https://fonts.googleapis.com/css2?family=Playwrite+AU+QLD:wght@100..400&display=swap");
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.app {
+  display: flex;
+  background-color: #282c34;
+  height: 100vh;
+}
+
+.right-section {
+  width: 100%;
+  font-family: "Playwrite AU QLD", cursive;
+  font-size: 54pt;
+  font-weight: 700;
+  color: #ffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.left-section {
+  width: 712px;
+  margin: 6px 12px;
+  border-radius: 4px;
+  background-color: #fff0e5;
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+}
+/* .rca-fe-signup-container {
+} */
+.rca-fe-signin-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.rca-fe-form-section-container {
+  border: 1px solid black;
+  height: 74%;
+}
+.rca-fe-btn-section-container {
+  height: 150px;
+  border: 1px solid black;
+  padding: 0 36px;
+  width: 100%;
+}
+
+.rca-fe-fw-btn {
+  width: 100%;
+  margin: 18px 0;
+}
+
+.rca-fe-sign-title {
+  padding: 0 36px;
+  font-size: 21pt;
+  margin: 100px 0 25px 0;
+}
+
+.rca-fe-password-container,
+.rca-fe-email-container {
+  padding: 0 36px;
+}
+
+#inputGroup-sizing-default {
+  width: 95px;
 }
