@@ -143,6 +143,31 @@ code {
   margin: 3px 12px;
 }
 
+.rca-card-content{
+  border: 1px solid red;
+}
+
+.rca-card-cell{
+  border: 1px solid black;
+    margin: 2px 14px;
+    padding: 6px 3px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.rca-card-cell-body {
+  width: 100%;
+}
+
+.rca-card-cell-icon{
+  border: 1px solid red;
+    font-size: 20pt;
+    width: 38px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 @media screen and (max-width: 760px) {
   .right-section {
     display: none;
