@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -20,7 +22,7 @@ function SignupPageComponent() {
   const handleSubmitClick = async () => {
     if (email && password) {
       try {
-        const response = await fetch("http://localhost:3030/signup", {
+        const response = await fetch("http://localhost:5000/signup", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

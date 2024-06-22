@@ -3,9 +3,12 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const User = require("./models/User");
 const crypto = require("crypto");
 const cors = require("cors");
+
+const {User, Group} = require("./models/User");
+
+require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3030;
@@ -23,7 +26,7 @@ const userNameGen = (str) => {
 const JWT_SECRET = generateJWTSecret();
 
 const mongoURI =
-  "mongodb+srv://rca-db:dxlsJkqDEn97rbV7@rca-cluster-01.gv1rhud.mongodb.net/";
+  process.env.MONGO_URI;
 mongoose
   .connect(mongoURI)
   .then(() => console.log("Connected to MongoDB"))
@@ -68,6 +71,28 @@ app.post("/login", async (req, res) => {
     res.status(200).json({ token, username: user.username });
   } catch (error) {
     res.status(500).send("Error logging in");
+  }
+});
+
+// Create Group Endpoint
+app.post('/groups', async (req, res) => {
+  const { name, owner } = req.body;
+  try {
+    const newGroup = new Group({ name, owner });
+    await newGroup.save();
+    res.status(201).json(newGroup);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+// Get All Groups Endpoint
+app.get('/api/groups', async (req, res) => {
+  try {
+    const groups = await Group.find();
+    res.json(groups);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 });
 
