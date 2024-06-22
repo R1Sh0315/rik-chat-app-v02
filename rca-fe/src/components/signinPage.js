@@ -28,8 +28,8 @@ function SigninPageComponent() {
         });
         if (response.ok) {
           const data = await response.json();
-          console.log("Login successful, token:", data.token);
-          login(data.token);
+          console.log("Login successful, token:", data.token, "username:", data.username);
+          login(data.token, data.username);
           navigate("/dashboard");
         } else {
           console.error("Invalid email or password");

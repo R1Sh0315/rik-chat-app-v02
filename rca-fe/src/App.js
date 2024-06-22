@@ -16,8 +16,9 @@ function App() {
           <div className="right-section">Rik Chat App</div>
           <div className="left-section">
             <Routes>
-              <Route path="/signin" element={<SigninPageComponent />} />
+              <Route path="/" element={<SignupPageComponent />} />
               <Route path="/signup" element={<SignupPageComponent />} />
+              <Route path="/signin" element={<SigninPageComponent />} />
               <Route
                 path="/dashboard"
                 element={
