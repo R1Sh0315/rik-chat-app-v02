@@ -76,9 +76,10 @@ app.post("/login", async (req, res) => {
 
 // Create Group Endpoint
 app.post('/groups', async (req, res) => {
-  const { name, owner } = req.body;
+  const { name, owner , needAdminAccess} = req.body;
   try {
-    const newGroup = new Group({ name, owner });
+    const newGroup = new Group({ name, owner, needAdminAccess });
+    console.log('Group Data >>>', newGroup)
     await newGroup.save();
     res.status(201).json(newGroup);
   } catch (error) {
@@ -87,7 +88,7 @@ app.post('/groups', async (req, res) => {
 });
 
 // Get All Groups Endpoint
-app.get('/api/groups', async (req, res) => {
+app.get('/groups', async (req, res) => {
   try {
     const groups = await Group.find();
     res.json(groups);

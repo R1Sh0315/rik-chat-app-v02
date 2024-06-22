@@ -58,6 +58,12 @@ code {
   width: 100%;
 }
 
+.rca-fe-footer-container {
+  height: 150px;
+  padding: 0 36px;
+  width: 100%;
+}
+
 .rca-fe-fw-btn {
   width: 100%;
   margin: 18px 0;
@@ -75,15 +81,17 @@ code {
 }
 
 #inputGroup-sizing-default {
-  width: 95px;
+  width: 118px;
 }
 
 .rca-fe-dashboard-container {
-  display: contents;
-  width: fit-content;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
 }
 
-.rca-fe-dashboard-header {
+.rca-fe-dashboard-header,
+.rca-group-form-header {
   display: flex;
   flex-direction: row;
   flex-direction: row;
@@ -94,12 +102,24 @@ code {
   border-bottom: 2px solid #242424;
 }
 
-.rca-fe-db-header-btn {
-  padding: 6px 12px;
-    width: 25%;
+.rca-group-form-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.db-header-btn{
+.rca-group-name-input-container {
+  border: 1px solid black;
+  padding: 0 14%;
+}
+
+.rca-fe-db-header-btn {
+  padding: 6px 12px;
+  width: 25%;
+}
+
+.db-header-btn {
   width: 100%;
   border: 2px solid !important;
   display: flex !important;
@@ -107,15 +127,24 @@ code {
   justify-content: center;
 }
 
-.rca-fe-db-header-uname{
+.rca-fe-db-header-uname {
   padding: 7px 0;
   font-size: 16px;
   font-weight: 600;
-  
+}
+
+.rca-fe-dashboard-container {
+}
+
+.back-btn {
+  display: flex;
+  height: auto;
+  font-size: 20pt;
+  margin: 3px 12px;
 }
 
 @media screen and (max-width: 760px) {
-  .right-section{
+  .right-section {
     display: none;
   }
 }

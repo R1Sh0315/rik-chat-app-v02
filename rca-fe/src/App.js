@@ -4,9 +4,10 @@ import SigninPageComponent from "./components/signinPage";
 import SignupPageComponent from "./components/signupPage";
 import DashboardComponent from "./components/dashboardPage";
 import { AuthProvider } from "./service/AuthContext";
-import ProtectedRoute from './service/ProtectedRoute'
+import ProtectedRoute from "./service/ProtectedRoute";
 
 import "./App.css";
+import NewFormComponent from "./components/Form/newForm";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
                   </ProtectedRoute>
                 }
               />
+              <Route path="/group-form" element={<NewFormComponent />} />
             </Routes>
           </div>
         </div>
