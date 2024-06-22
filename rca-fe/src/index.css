@@ -41,15 +41,15 @@ code {
 }
 /* .rca-fe-signup-container {
 } */
-.rca-fe-signin-container {
+.rca-fe-signin-container , .rca-fe-signup-container {
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 .rca-fe-form-section-container {
-  border: 1px solid black;
-  height: 74%;
+  /* border: 1px solid black; */
+  /* height: 74%; */
 }
 .rca-fe-btn-section-container {
   height: 150px;

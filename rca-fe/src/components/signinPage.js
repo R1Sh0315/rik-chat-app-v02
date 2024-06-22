@@ -3,12 +3,10 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import { useContext, useState } from "react";
-import AuthContext from '../service/AuthContext'
+import AuthContext from "../service/AuthContext";
 
 function SigninPageComponent() {
   const navigate = useNavigate();
-
-
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -45,7 +43,7 @@ function SigninPageComponent() {
   return (
     <div className="rca-fe-signin-container">
       <div className="rca-fe-form-section-container">
-        <div className="rca-fe-sign-title">Get start with RCA</div>
+        <div className="rca-fe-sign-title">Log in with RCA</div>
 
         <div className="rca-fe-email-container">
           <InputGroup className="mb-3">

@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
@@ -19,11 +19,13 @@ export const AuthProvider = ({ children }) => {
     navigate('/signin');
   };
 
-  useEffect(() => {
-    if (!authToken) {
-      navigate('/signin');
-    }
-  }, [authToken, navigate]);
+//   useEffect(() => {
+//     if (!authToken) {
+//       navigate('/signin' || '/signup');
+//     } else {
+//       navigate('/dashboard');
+//     }
+//   }, [authToken, navigate]);
 
   return (
     <AuthContext.Provider value={{ authToken, login, logout }}>

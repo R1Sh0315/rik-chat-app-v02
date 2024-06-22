@@ -7,9 +7,9 @@ import { useState } from "react";
 function SignupPageComponent() {
   const navigate = useNavigate();
 
-//   const handleSigninClick = () => {
-//     navigate("/signin");
-//   };
+  //   const handleSigninClick = () => {
+  //     navigate("/signin");
+  //   };
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -42,7 +42,7 @@ function SignupPageComponent() {
   return (
     <div className="rca-fe-signup-container">
       <div className="rca-fe-form-section-container">
-        <div className="rca-fe-sign-title">Log in to RCA</div>
+        <div className="rca-fe-sign-title">Get start with RCA</div>
         <div className="rca-fe-email-container">
           <InputGroup className="mb-3">
             <InputGroup.Text id="inputGroup-sizing-default">
