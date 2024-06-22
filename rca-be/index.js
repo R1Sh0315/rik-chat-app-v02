@@ -6,9 +6,9 @@ const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 const cors = require("cors");
 
-const {User, Group} = require("./models/User");
+const { User, Group } = require("./models/User");
 
-require('dotenv').config();
+require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 3030;
@@ -25,8 +25,7 @@ const userNameGen = (str) => {
 
 const JWT_SECRET = generateJWTSecret();
 
-const mongoURI =
-  process.env.MONGO_URI;
+const mongoURI = process.env.MONGO_URI;
 mongoose
   .connect(mongoURI)
   .then(() => console.log("Connected to MongoDB"))
@@ -75,11 +74,11 @@ app.post("/login", async (req, res) => {
 });
 
 // Create Group Endpoint
-app.post('/groups', async (req, res) => {
-  const { name, owner , needAdminAccess} = req.body;
+app.post("/groups", async (req, res) => {
+  const { name, owner, needAdminAccess } = req.body;
   try {
     const newGroup = new Group({ name, owner, needAdminAccess });
-    console.log('Group Data >>>', newGroup)
+    console.log("Group Data >>>", newGroup);
     await newGroup.save();
     res.status(201).json(newGroup);
   } catch (error) {
@@ -88,12 +87,30 @@ app.post('/groups', async (req, res) => {
 });
 
 // Get All Groups Endpoint
-app.get('/groups', async (req, res) => {
+app.get("/groups", async (req, res) => {
   try {
     const groups = await Group.find();
     res.json(groups);
   } catch (error) {
     res.status(500).json({ error: error.message });
+  }
+});
+
+//post to join group
+app.post("/groups/join", async (req, res) => {
+  const { groupId, username } = req.body;
+  console.log(groupId, username, "<<<<<<");
+  try {
+    const group = await Group.findById(groupId);
+    console.log(group, "<<<<<<");
+    if (!group.members.includes(username)) {
+      group.members.push(username);
+      await group.save();
+    }
+    console.log(">>>>> OK");
+    res.status(200).json(group);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
   }
 });
 
