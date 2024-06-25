@@ -21,7 +21,9 @@ function SigninPageComponent() {
   const handleSubmitClick = async () => {
     if (email && password) {
       try {
-        const response = await fetch("http://localhost:5000/login", {
+        // https://rik-chat-app-v02-be-v01.vercel.app/
+        // http://localhost:5000/login
+        const response = await fetch("https://rik-chat-app-v02-be-v01.vercel.app/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
