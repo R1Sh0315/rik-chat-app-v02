@@ -23,7 +23,8 @@ const groupSchema = new mongoose.Schema({
   name: { type: String, required: true, unique: true },
   owner: { type: String, required: true },
   needAdminAccess: {type: Boolean, default: false },
-  members:{type: [String], default: []}
+  members:{type: [String], default: []},
+  requests: { type: [String], default: [] }
 });
 
 const User = mongoose.model("User", userSchema);

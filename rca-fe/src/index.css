@@ -133,8 +133,8 @@ code {
   font-weight: 600;
 }
 
-.rca-fe-dashboard-container {
-}
+/* .rca-fe-dashboard-container {
+} */
 
 .back-btn {
   display: flex;
@@ -166,6 +166,20 @@ code {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.rca-alert-container{
+  border: 1px solid red;
+  position: fixed;
+  top: 66px;
+  right: 27px;
+  font-size: 17pt;
+}
+
+.rca-card-channel-title{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 @media screen and (max-width: 760px) {

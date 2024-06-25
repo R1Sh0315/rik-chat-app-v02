@@ -12,11 +12,11 @@ function DashboardComponent() {
   const { logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
-//   const [groups, setGroups] = useState([]);
+  //   const [groups, setGroups] = useState([]);
 
-//   const handleGroupCreated = (newGroup) => {
-//     setGroups([...groups, newGroup]);
-//   };
+  //   const handleGroupCreated = (newGroup) => {
+  //     setGroups([...groups, newGroup]);
+  //   };
 
   return (
     <div className="rca-fe-dashboard-container">
@@ -43,7 +43,6 @@ function DashboardComponent() {
           </Button>
         </div>
       </div>
-      '
       <GroupList />
     </div>
   );

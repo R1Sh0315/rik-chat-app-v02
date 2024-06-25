@@ -77,7 +77,12 @@ app.post("/login", async (req, res) => {
 app.post("/groups", async (req, res) => {
   const { name, owner, needAdminAccess } = req.body;
   try {
-    const newGroup = new Group({ name, owner, needAdminAccess });
+    const newGroup = new Group({
+      name,
+      owner,
+      needAdminAccess,
+      members: [owner],
+    });
     console.log("Group Data >>>", newGroup);
     await newGroup.save();
     res.status(201).json(newGroup);
@@ -113,6 +118,40 @@ app.post("/groups/join", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
+
+// Post to request access to join a group
+app.post("/groups/request", async (req, res) => {
+  const { groupId, username } = req.body;
+  try {
+    const group = await Group.findById(groupId);
+    if (
+      !group.requests.includes(username) &&
+      !group.members.includes(username)
+    ) {
+      group.requests.push(username);
+      await group.save();
+    }
+    res.status(200).json(group);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+// Fetch all group join requests for a specific user
+app.get("/groups/requests/:owner", async (req, res) => {
+  const { owner } = req.params;
+  console.log('#'+owner)
+  try {
+    const groups = await Group.find({
+      owner: '#'+owner,
+      requests: { $exists: true, $not: { $size: 0 } },
+    });
+    res.status(200).json(groups);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

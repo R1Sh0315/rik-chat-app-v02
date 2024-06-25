@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
+import AlertComponent from "../notification/alertComponent";
 
 const GroupList = () => {
   const [groups, setGroups] = useState([]);
-  const [openGroup, setOpenGroup] = useState(false);
+  // const [openGroup, setOpenGroup] = useState(false);
+  const [joinGrp, setJoinGrp] = useState(false);
 
   useEffect(() => {
     const fetchGroups = async () => {
@@ -37,9 +39,17 @@ const GroupList = () => {
     }
   };
 
-  const handleRequest = (groupId) => {
+  const handleRequest = async (groupId) => {
     console.log(`Requesting access to group with ID: ${groupId}`);
-    // Implement request access logic here
+    try {
+      await axios.post("http://localhost:5000/groups/request", {
+        groupId,
+        username: localStorage.getItem("username"),
+      });
+      // Optionally, you could update the UI to reflect that a request has been sent
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const openGroupHandler = (groupId) => {
@@ -48,7 +58,13 @@ const GroupList = () => {
     // Implement open group logic here
   };
 
-  const renderButton = (currentOwner, groupOwner, needAccess, groupId) => {
+  const renderButton = (
+    currentOwner,
+    groupOwner,
+    needAccess,
+    groupId,
+    members
+  ) => {
     if (currentOwner === groupOwner) {
       return null; // No button for the owner
     } else {
@@ -63,9 +79,19 @@ const GroupList = () => {
         );
       } else {
         return (
-          <Button variant="outline-success" onClick={() => handleJoin(groupId)}>
-            Join
-          </Button>
+          <>
+            {!members?.includes(currentOwner) ? (
+              <Button
+                variant="outline-success"
+                onClick={() => {
+                  handleJoin(groupId);
+                  setJoinGrp(!joinGrp);
+                }}
+              >
+                Join
+              </Button>
+            ) : null}
+          </>
         );
       }
     }
@@ -73,7 +99,10 @@ const GroupList = () => {
 
   return (
     <div className="rca-card-container">
-      <h2>Channels</h2>
+      <div className="rca-card-channel-title">
+        <h2>Channels</h2>
+        <AlertComponent />
+      </div>
       <div className="rca-card-content">
         {groups.map((group) => (
           <div
@@ -94,7 +123,8 @@ const GroupList = () => {
                 localStorage.getItem("username"),
                 group.owner,
                 group.needAdminAccess,
-                group._id
+                group._id,
+                group.members
               )}
             </div>
           </div>
