@@ -84,7 +84,8 @@ code {
   width: 118px;
 }
 
-.rca-fe-dashboard-container {
+.rca-fe-dashboard-container,
+.rca-fe-chatpage-container {
   display: flex;
   width: 100%;
   flex-direction: column;
@@ -143,32 +144,32 @@ code {
   margin: 3px 12px;
 }
 
-.rca-card-content{
+.rca-card-content {
   border: 1px solid red;
 }
 
-.rca-card-cell{
+.rca-card-cell {
   border: 1px solid black;
-    margin: 2px 14px;
-    padding: 6px 3px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  margin: 2px 14px;
+  padding: 6px 3px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 .rca-card-cell-body {
   width: 100%;
 }
 
-.rca-card-cell-icon{
+.rca-card-cell-icon {
   border: 1px solid red;
-    font-size: 20pt;
-    width: 38px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  font-size: 20pt;
+  width: 38px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.rca-alert-container{
+.rca-alert-container {
   border: 1px solid red;
   position: fixed;
   top: 66px;
@@ -176,7 +177,7 @@ code {
   font-size: 17pt;
 }
 
-.rca-card-channel-title{
+.rca-card-channel-title {
   display: flex;
   flex-direction: row;
   justify-content: space-between;

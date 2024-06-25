@@ -22,12 +22,18 @@ const userSchema = new mongoose.Schema({
 const groupSchema = new mongoose.Schema({
   name: { type: String, required: true, unique: true },
   owner: { type: String, required: true },
-  needAdminAccess: {type: Boolean, default: false },
-  members:{type: [String], default: []},
-  requests: { type: [String], default: [] }
+  needAdminAccess: { type: Boolean, default: false },
+  grpType: { type: String, required: true },
+  members: { type: [String], default: [] },
+  requests: [
+    {
+      groupId: { type: mongoose.Schema.Types.ObjectId, ref: "Group" },
+      username: { type: String, required: true },
+    },
+  ],
 });
 
 const User = mongoose.model("User", userSchema);
-const Group = mongoose.model('Group', groupSchema);
+const Group = mongoose.model("Group", groupSchema);
 
-module.exports = {User, Group};
+module.exports = { User, Group };

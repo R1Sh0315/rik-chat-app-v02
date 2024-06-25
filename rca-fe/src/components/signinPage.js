@@ -23,7 +23,7 @@ function SigninPageComponent() {
       try {
         // https://rik-chat-app-v02-be-v01.vercel.app/
         // http://localhost:5000/login
-        const response = await fetch("https://rik-chat-app-v02-be-v01.vercel.app/login", {
+        const response = await fetch("http://localhost:5000/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

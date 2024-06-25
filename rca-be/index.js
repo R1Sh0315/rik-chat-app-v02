@@ -22,6 +22,7 @@ const userNameGen = (str) => {
   const userHash = crypto.createHash("sha256").update(str).digest("hex");
   return "#" + userHash.substring(0, 8);
 };
+app.use(bodyParser.json());
 
 const JWT_SECRET = generateJWTSecret();
 
@@ -33,14 +34,14 @@ mongoose
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("Error connecting to MongoDB", err));
 
-app.use(
-  cors({
-    origin: ["https://rik-chat-app-v02-fe-01.vercel.app"],
-    methods: ["POST", "GET"],
-    credentials: true,
-  })
-);
-app.use(bodyParser.json());
+  app.use(cors());
+// app.use(
+//   cors({
+//     origin: ["https://rik-chat-app-v02-fe-01.vercel.app"],
+//     methods: ["POST", "GET"],
+//     credentials: true,
+//   })
+// );
 
 app.get("/", (req, res) => {
   res.json("BE successfully hosted");
@@ -88,11 +89,13 @@ app.post("/login", async (req, res) => {
 // Create Group Endpoint
 app.post("/groups", async (req, res) => {
   const { name, owner, needAdminAccess } = req.body;
+  const grpType = needAdminAccess?'private':'global'
   try {
     const newGroup = new Group({
       name,
       owner,
       needAdminAccess,
+      grpType: grpType,
       members: [owner],
     });
     console.log("Group Data >>>", newGroup);

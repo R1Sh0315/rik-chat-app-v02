@@ -8,6 +8,7 @@ import ProtectedRoute from "./service/ProtectedRoute";
 
 import "./App.css";
 import NewFormComponent from "./components/Form/newForm";
+import ChatPage from "./components/pages/chatPage";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
                 }
               />
               <Route path="/group-form" element={<NewFormComponent />} />
+              <Route path="/group-chat" element={<ChatPage />} />
             </Routes>
           </div>
         </div>
