@@ -5,13 +5,31 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 const cors = require("cors");
+const http = require("http");
 
-const { User, Group } = require("./models/User");
+//socket for chat
+const socketIo = require("socket.io");
+const { Server } = require("socket.io");
+
+const { User, Group, Message } = require("./models/User");
 
 require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 3030;
+
+const server = http.createServer(app);
+// const io = new Server(server, {
+//   cors: {
+//     origin: "*",
+//   },
+// });
+const io = socketIo(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"]
+  }
+});
 
 const generateJWTSecret = () => {
   console.log("7 : ", crypto.randomBytes(32).toString("hex"));
@@ -34,7 +52,7 @@ mongoose
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("Error connecting to MongoDB", err));
 
-  app.use(cors());
+app.use(cors());
 // app.use(
 //   cors({
 //     origin: ["https://rik-chat-app-v02-fe-01.vercel.app"],
@@ -50,6 +68,7 @@ app.get("/", (req, res) => {
 // Signup route
 app.post("/signup", async (req, res) => {
   const { email, password } = req.body;
+  console.log(email,' : ', password)
   try {
     const hashPassword = await bcrypt.hash(password, 10);
     const user = new User({
@@ -89,7 +108,7 @@ app.post("/login", async (req, res) => {
 // Create Group Endpoint
 app.post("/groups", async (req, res) => {
   const { name, owner, needAdminAccess } = req.body;
-  const grpType = needAdminAccess?'private':'global'
+  const grpType = needAdminAccess ? "private" : "global";
   try {
     const newGroup = new Group({
       name,
@@ -167,6 +186,37 @@ app.get("/groups/requests/:owner", async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
+// Endpoint to fetch chat history
+app.get("/groups/:groupId/messages", async (req, res) => {
+  const { groupId } = req.params;
+  try {
+    const messages = await Message.find({ groupId }).sort({ timestamp: 1 });
+    res.status(200).json(messages);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+io.on("connection", (socket) => {
+  console.log("A user connected");
+
+  socket.on("joinGroup", (groupId) => {
+    socket.join(groupId);
+    console.log(`User joined group: ${groupId}`);
+  });
+
+  socket.on("sendMessage", async (data) => {
+    const { groupId, username, message } = data;
+    const newMessage = new Message({ groupId, username, message });
+    await newMessage.save();
+    io.to(groupId).emit("receiveMessage", newMessage);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("User disconnected");
+  });
+});
+
+server.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });

@@ -33,7 +33,18 @@ const groupSchema = new mongoose.Schema({
   ],
 });
 
+// Define a schema and model for chat messages
+const messageSchema = new mongoose.Schema({
+  groupId: { type: String, required: true },
+  username: { type: String, required: true },
+  message: { type: String, required: true },
+  timestamp: { type: Date, default: Date.now },
+});
+
+
 const User = mongoose.model("User", userSchema);
 const Group = mongoose.model("Group", groupSchema);
+const Message = mongoose.model("Message", messageSchema);
 
-module.exports = { User, Group };
+
+module.exports = { User, Group, Message };
