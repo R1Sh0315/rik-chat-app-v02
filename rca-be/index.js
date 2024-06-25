@@ -25,14 +25,26 @@ const userNameGen = (str) => {
 
 const JWT_SECRET = generateJWTSecret();
 
-const mongoURI = process.env.MONGO_URI;
+// const mongoURI = process.env.MONGO_URI;
 mongoose
-  .connect(mongoURI)
+  .connect(
+    "mongodb+srv://rca-db:dxlsJkqDEn97rbV7@rca-cluster-01.gv1rhud.mongodb.net/"
+  )
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("Error connecting to MongoDB", err));
 
+app.use(
+  cors({
+    origin: ["https://rik-chat-app-v02-be-v01.vercel.app/"],
+    methods: ["POST", "GET"],
+    credentials: true,
+  })
+);
 app.use(bodyParser.json());
-app.use(cors());
+
+app.get("/", (req, res) => {
+  res.json("BE successfully hosted");
+});
 
 // Signup route
 app.post("/signup", async (req, res) => {
@@ -140,10 +152,10 @@ app.post("/groups/request", async (req, res) => {
 // Fetch all group join requests for a specific user
 app.get("/groups/requests/:owner", async (req, res) => {
   const { owner } = req.params;
-  console.log('#'+owner)
+  console.log("#" + owner);
   try {
     const groups = await Group.find({
-      owner: '#'+owner,
+      owner: "#" + owner,
       requests: { $exists: true, $not: { $size: 0 } },
     });
     res.status(200).json(groups);
@@ -151,7 +163,6 @@ app.get("/groups/requests/:owner", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
-
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
