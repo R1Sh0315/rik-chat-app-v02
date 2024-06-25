@@ -35,7 +35,7 @@ mongoose
 
 app.use(
   cors({
-    origin: ["https://rik-chat-app-v02-be-v01.vercel.app/"],
+    origin: ["https://rik-chat-app-v02-be-v01.vercel.app"],
     methods: ["POST", "GET"],
     credentials: true,
   })
