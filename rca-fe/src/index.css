@@ -284,6 +284,7 @@ code {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin: 10px 17px;
 }
 
 @media screen and (max-width: 760px) {
@@ -328,7 +329,6 @@ code {
 }
 
 .rca-info-icon {
-  border: 1px solid black;
   font-size: 16pt;
   margin: 0 6px;
 }
