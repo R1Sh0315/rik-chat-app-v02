@@ -25,12 +25,7 @@ const groupSchema = new mongoose.Schema({
   needAdminAccess: { type: Boolean, default: false },
   grpType: { type: String, required: true },
   members: { type: [String], default: [] },
-  requests: [
-    {
-      groupId: { type: mongoose.Schema.Types.ObjectId, ref: "Group" },
-      username: { type: String, required: true },
-    },
-  ],
+  requests: { type: [String], default: [] },
 });
 
 // Define a schema and model for chat messages
@@ -41,10 +36,8 @@ const messageSchema = new mongoose.Schema({
   timestamp: { type: Date, default: Date.now },
 });
 
-
 const User = mongoose.model("User", userSchema);
 const Group = mongoose.model("Group", groupSchema);
 const Message = mongoose.model("Message", messageSchema);
-
 
 module.exports = { User, Group, Message };

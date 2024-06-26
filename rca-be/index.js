@@ -27,8 +27,8 @@ const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
     origin: "http://localhost:3000",
-    methods: ["GET", "POST"]
-  }
+    methods: ["GET", "POST"],
+  },
 });
 
 const generateJWTSecret = () => {
@@ -68,7 +68,6 @@ app.get("/", (req, res) => {
 // Signup route
 app.post("/signup", async (req, res) => {
   const { email, password } = req.body;
-  console.log(email,' : ', password)
   try {
     const hashPassword = await bcrypt.hash(password, 10);
     const user = new User({
@@ -174,13 +173,23 @@ app.post("/groups/request", async (req, res) => {
 // Fetch all group join requests for a specific user
 app.get("/groups/requests/:owner", async (req, res) => {
   const { owner } = req.params;
-  console.log("#" + owner);
   try {
     const groups = await Group.find({
       owner: "#" + owner,
       requests: { $exists: true, $not: { $size: 0 } },
+    }).select("requests name _id");
+
+    // Debugging: Check if groups are found
+
+    const formattedGroups = groups.map((group) => {
+      return {
+        groupId: group._id,
+        groupName: group.name,
+        requests: group.requests,
+      };
     });
-    res.status(200).json(groups);
+
+    res.status(200).json(formattedGroups);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

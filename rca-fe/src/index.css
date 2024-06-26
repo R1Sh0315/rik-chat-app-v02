@@ -170,7 +170,6 @@ code {
 }
 
 .rca-alert-container {
-  border: 1px solid red;
   position: fixed;
   top: 66px;
   right: 27px;
@@ -238,4 +237,31 @@ code {
 
 .chat-input button {
   border-radius: 0 4px 4px 0;
+}
+
+
+.rca-alert-card {
+  border: 1px solid black;
+  height: 53px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px;
+  border-radius: 4px;
+  padding: 4px;
+  background-color: #fff0e5;
+  }
+.alert-accept-btn {
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-items: flex-start;
+  font-size: 10pt !important;  
+}
+
+.rca-alert-msg {
+  font-size: 12pt;
+  width: 263px;
 }

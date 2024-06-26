@@ -108,7 +108,7 @@ const GroupList = () => {
     <div className="rca-card-container">
       <div className="rca-card-channel-title">
         <h2>Channels</h2>
-        <AlertComponent />
+        <AlertComponent  />
       </div>
       <div className="rca-card-content">
         {groups.map((group) => (
