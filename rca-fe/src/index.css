@@ -206,6 +206,15 @@ code {
 .rca-card-content {
   /* border: 1px solid red; */
 }
+.like-container {
+  padding: 0px 3px;
+  position: relative;
+  top: 8px;
+}
+
+.like {
+  font-size: 11pt;
+}
 
 .rca-card-cell {
   margin: 2px 14px;
@@ -254,7 +263,7 @@ code {
 .rca-fe-chatpage-container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 99vh;
 }
 
 .rca-fe-dashboard-header {
@@ -270,8 +279,9 @@ code {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  padding: 10px;
+  padding: 10px 10px 0 10px;
   width: 100%;
+  justify-content: space-between;
 }
 
 .chat-history {
@@ -282,6 +292,7 @@ code {
   border: 1px solid #ddd;
   border-radius: 4px;
   background-color: #f9f9f9;
+  height: 500px;
 }
 
 .chat-message {
@@ -291,6 +302,7 @@ code {
 
 .chat-input {
   display: flex;
+  margin-bottom: 11px;
 }
 
 .chat-input input {

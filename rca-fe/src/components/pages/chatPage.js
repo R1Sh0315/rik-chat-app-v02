@@ -6,6 +6,7 @@ import { IoMdAdd } from "react-icons/io";
 import { AiOutlineMinusCircle } from "react-icons/ai";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
+import { MdOutlineAddReaction, MdOutlineThumbUp } from "react-icons/md";
 
 import axios from "axios";
 
@@ -88,6 +89,24 @@ function ChatPage() {
       });
   };
 
+  const likeMessage = async (messageId) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:5000/messages/${messageId}/like`,
+        {
+          username: localStorage.getItem("username"),
+        }
+      );
+      setMessages((prevMessages) =>
+        prevMessages.map((msg) =>
+          msg._id === messageId ? { ...msg, likes: msg.likes + 1 } : msg
+        )
+      );
+    } catch (error) {
+      console.error("Error liking message:", error);
+    }
+  };
+
   return (
     <div className="rca-fe-chatpage-container">
       <div className="rca-fe-dashboard-header">
@@ -159,7 +178,7 @@ function ChatPage() {
       <div className="chat-container">
         <div className="chat-history">
           {messages.map((msg, index) => (
-            <div className="chat-body">
+            <div className="chat-body" key={index}>
               <div key={index} className={`chat-message `}>
                 <div
                   className={`chat-body ${
@@ -187,6 +206,26 @@ function ChatPage() {
                   >
                     {msg.message}
                   </span>
+                  {localStorage.getItem("username") !== msg.username ? (
+                    <div className="like-container" onClick={() => likeMessage(msg._id)}>
+                      {msg.likes.length ? (
+                        <>
+                          <MdOutlineThumbUp />
+                        </>
+                      ) : msg.likes.length >= 2 ? (
+                        <>
+                          <MdOutlineThumbUp />
+                          <span className="like">{msg.likes.length}</span>
+                        </>
+                      ) : (
+                        <>
+                          <MdOutlineAddReaction />
+                        </>
+                      )}
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
             </div>

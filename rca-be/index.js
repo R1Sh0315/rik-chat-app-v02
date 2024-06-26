@@ -276,6 +276,35 @@ app.get("/groups/:groupId/messages", async (req, res) => {
   }
 });
 
+app.post("/messages/:messageId/like", async (req, res) => {
+  const { messageId } = req.params;
+  const { username } = req.body;
+
+  try {
+    const message = await Message.findById(messageId);
+
+    if (!message) {
+      return res.status(404).json({ message: "Message not found" });
+    }
+
+    if (message.username === username) {
+      return res.status(400).json({ message: "You cannot like your own message" });
+    }
+
+    if (message.likes.includes(username)) {
+      return res.status(400).json({ message: "You have already liked this message" });
+    }
+
+    message.likes.push(username);
+    await message.save();
+
+    res.status(200).json({ message: "Message liked", likes: message.likes.length });
+  } catch (error) {
+    console.error("Error liking message:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 io.on("connection", (socket) => {
   console.log("A user connected");
 

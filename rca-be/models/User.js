@@ -33,6 +33,12 @@ const messageSchema = new mongoose.Schema({
   groupId: { type: String, required: true },
   username: { type: String, required: true },
   message: { type: String, required: true },
+  likes: [
+    {
+      type: String,
+      default: [],
+    },
+  ],
   timestamp: { type: Date, default: Date.now },
 });
 
