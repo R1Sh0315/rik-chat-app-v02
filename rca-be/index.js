@@ -228,6 +228,43 @@ app.post("/groups/accept-request", async (req, res) => {
   }
 });
 
+app.post("/groups/add-member", async (req, res) => {
+  const { groupId, username } = req.body;
+
+  try {
+    const group = await Group.findOne({ name: groupId });
+
+    if (!group) {
+      return res.status(404).json({ message: "Group not found" });
+    }
+
+    if (!group.members.includes(username)) {
+      group.members.push(username);
+      await group.save();
+    } else {
+      return res.status(400).json({ message: "User is already a member" });
+    }
+
+    res.status(200).json({ message: "User added to the group" });
+  } catch (error) {
+    console.error("Error adding user to group:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+
+app.get('/users/search', async (req, res) => {
+  const query = req.query.q;
+
+  try {
+    const users = await User.find({ username: new RegExp(query, 'i') }).select('username'); // Adjust this query based on your user schema
+    res.status(200).json(users);
+  } catch (error) {
+    console.error('Error searching users:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 // Endpoint to fetch chat history
 app.get("/groups/:groupId/messages", async (req, res) => {
   const { groupId } = req.params;

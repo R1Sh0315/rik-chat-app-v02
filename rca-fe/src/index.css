@@ -89,6 +89,14 @@ code {
   display: flex;
   width: 100%;
   flex-direction: column;
+  align-items: center;
+}
+
+.user-list{
+  border: 1px solid black;
+  position: absolute;
+    width: 80%;
+    background-color: #f5f5f5;
 }
 
 .rca-fe-dashboard-header,
@@ -169,6 +177,12 @@ code {
   align-items: center;
 }
 
+.chat-user-search {
+  border: 1px solid black;
+  margin-top: 4px;
+  width: 84%
+}
+
 .rca-alert-container {
   position: fixed;
   top: 66px;
@@ -208,6 +222,7 @@ code {
   flex-direction: column;
   flex-grow: 1;
   padding: 10px;
+  width: 100%;
 }
 
 .chat-history {
@@ -239,7 +254,6 @@ code {
   border-radius: 0 4px 4px 0;
 }
 
-
 .rca-alert-card {
   border: 1px solid black;
   height: 53px;
@@ -251,17 +265,21 @@ code {
   border-radius: 4px;
   padding: 4px;
   background-color: #fff0e5;
-  }
+}
 .alert-accept-btn {
   height: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
   align-items: flex-start;
-  font-size: 10pt !important;  
+  font-size: 10pt !important;
 }
 
 .rca-alert-msg {
   font-size: 12pt;
   width: 263px;
+}
+
+.add-user-btn {
+  font-size: 17pt !important;
 }
