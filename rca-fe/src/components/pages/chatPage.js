@@ -6,7 +6,13 @@ import { IoMdAdd } from "react-icons/io";
 import { AiOutlineMinusCircle } from "react-icons/ai";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
-import { MdOutlineAddReaction, MdOutlineThumbUp } from "react-icons/md";
+import {
+  MdOutlineAddReaction,
+  MdOutlineThumbUp,
+  MdInfoOutline,
+  MdClose,
+} from "react-icons/md";
+import { HiMiniMinusCircle } from "react-icons/hi2";
 
 import axios from "axios";
 
@@ -23,6 +29,8 @@ function ChatPage() {
   const [newMessage, setNewMessage] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [userList, setUserList] = useState([]);
+  const [isInfoOpen, setInfoOpen] = useState(false);
+  const [groupMembers, setGroupMembers] = useState({});
 
   useEffect(() => {
     if (groupId) {
@@ -37,6 +45,13 @@ function ChatPage() {
         setMessages((prevMessages) => [...prevMessages, message]);
         console.log(message);
       });
+
+      axios
+        .get(`http://localhost:5000/groups/${groupId}/members`)
+        .then((response) => setGroupMembers(response.data))
+        .catch((error) =>
+          console.error("Error fetching group members:", error)
+        );
     }
 
     return () => {
@@ -107,6 +122,32 @@ function ChatPage() {
     }
   };
 
+  const memberDelHandler = (member) => {
+    axios
+      .post("http://localhost:5000/groups/remove-member", {
+        groupId,
+        username: member,
+      })
+      .then((response) => {
+        console.log(response.data.message);
+        // Update the state to remove the member from the list
+        setGroupMembers((prevMembers) => ({
+          ...prevMembers,
+          members: prevMembers?.members?.filter((m) => m !== member),
+        }));
+
+        if (groupMembers.members?.length > 2) {
+          setInfoOpen(!isInfoOpen);
+        } else {
+          navigate("/dashboard");
+        }
+      })
+      .catch((error) => {
+        console.error("Error removing member from group:", error);
+        // Optionally show an error message to the user
+      });
+  };
+
   return (
     <div className="rca-fe-chatpage-container">
       <div className="rca-fe-dashboard-header">
@@ -119,7 +160,10 @@ function ChatPage() {
             Back
           </Button>
         </div>
-        {groupId ? `${groupId}` : "Group Chat"}
+        <div onClick={() => setInfoOpen(!isInfoOpen)}>
+          {groupId ? `${groupId}` : "Group Chat"}
+          <MdInfoOutline className="rca-info-icon" />
+        </div>
         {addUser ? (
           <div className="rca-fe-db-header-btn">
             <Button
@@ -143,6 +187,7 @@ function ChatPage() {
         )}
       </div>
 
+      {/* search member */}
       {!addUser ? (
         <div className="chat-user-search">
           <InputGroup className="mb-3">
@@ -170,6 +215,39 @@ function ChatPage() {
               ))}
             </div>
           )}
+        </div>
+      ) : (
+        ""
+      )}
+
+      {/* info card */}
+      {isInfoOpen ? (
+        <div className="rca-info-container">
+          <div className="rca-info-content">
+            <div className="rca-close-btn-container">
+              <MdClose onClick={() => setInfoOpen(!isInfoOpen)} />
+            </div>
+            <div className="rca-info-body">
+              <div className="rca-h3">Members</div>
+              <div className="rca-grp-member-list-container">
+                {groupMembers.member.map((member, key) => (
+                  <div key={key} className="rca-member-slab">
+                    <>{member}</>
+                    <>
+                      {member !== groupMembers.owner ? (
+                        <HiMiniMinusCircle
+                          onClick={() => memberDelHandler(member)}
+                          className="rca-member-del"
+                        />
+                      ) : (
+                        ""
+                      )}
+                    </>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       ) : (
         ""
@@ -207,7 +285,10 @@ function ChatPage() {
                     {msg.message}
                   </span>
                   {localStorage.getItem("username") !== msg.username ? (
-                    <div className="like-container" onClick={() => likeMessage(msg._id)}>
+                    <div
+                      className="like-container"
+                      onClick={() => likeMessage(msg._id)}
+                    >
                       {msg.likes.length ? (
                         <>
                           <MdOutlineThumbUp />

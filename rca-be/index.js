@@ -116,7 +116,6 @@ app.post("/groups", async (req, res) => {
       grpType: grpType,
       members: [owner],
     });
-    console.log("Group Data >>>", newGroup);
     await newGroup.save();
     res.status(201).json(newGroup);
   } catch (error) {
@@ -137,10 +136,8 @@ app.get("/groups", async (req, res) => {
 //post to join group
 app.post("/groups/join", async (req, res) => {
   const { groupId, username } = req.body;
-  console.log(groupId, username, "<<<<<<");
   try {
     const group = await Group.findById(groupId);
-    console.log(group, "<<<<<<");
     if (!group.members.includes(username)) {
       group.members.push(username);
       await group.save();
@@ -211,7 +208,6 @@ app.post("/groups/accept-request", async (req, res) => {
 
     // Remove the request from the group's requests list
 
-
     group.requests = group.requests.filter((request) => {
       request !== username;
     });
@@ -252,16 +248,17 @@ app.post("/groups/add-member", async (req, res) => {
   }
 });
 
-
-app.get('/users/search', async (req, res) => {
+app.get("/users/search", async (req, res) => {
   const query = req.query.q;
 
   try {
-    const users = await User.find({ username: new RegExp(query, 'i') }).select('username'); // Adjust this query based on your user schema
+    const users = await User.find({ username: new RegExp(query, "i") }).select(
+      "username"
+    ); // Adjust this query based on your user schema
     res.status(200).json(users);
   } catch (error) {
-    console.error('Error searching users:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    console.error("Error searching users:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 });
 
@@ -288,19 +285,59 @@ app.post("/messages/:messageId/like", async (req, res) => {
     }
 
     if (message.username === username) {
-      return res.status(400).json({ message: "You cannot like your own message" });
+      return res
+        .status(400)
+        .json({ message: "You cannot like your own message" });
     }
 
     if (message.likes.includes(username)) {
-      return res.status(400).json({ message: "You have already liked this message" });
+      return res
+        .status(400)
+        .json({ message: "You have already liked this message" });
     }
 
     message.likes.push(username);
     await message.save();
 
-    res.status(200).json({ message: "Message liked", likes: message.likes.length });
+    res
+      .status(200)
+      .json({ message: "Message liked", likes: message.likes.length });
   } catch (error) {
     console.error("Error liking message:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+app.post("/groups/remove-member", async (req, res) => {
+  const { groupId, username } = req.body;
+
+  try {
+    // Find the group by ID and remove the member
+    const group = await Group.findOne({ name: groupId });
+    if (group) {
+      group.members = group.members.filter((member) => member !== username);
+      await group.save();
+      res.status(200).json({ message: "Member removed successfully." });
+    } else {
+      res.status(404).json({ message: "Group not found." });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Error removing member.", error });
+  }
+});
+
+// Route to get group members
+app.get("/groups/:groupId/members", async (req, res) => {
+  const { groupId } = req.params;
+
+  try {
+    const group = await Group.findOne({ name: groupId }).populate("members"); // Assuming 'members' is an array of User IDs
+    if (!group) {
+      return res.status(404).json({ message: "Group not found" });
+    }
+    res.status(200).json({ member: group.members, owner: group.owner });
+  } catch (error) {
+    console.error("Error fetching group members:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 });

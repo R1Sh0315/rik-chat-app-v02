@@ -208,8 +208,40 @@ code {
 }
 .like-container {
   padding: 0px 3px;
-  position: relative;
+  /* position: relative; */
   top: 8px;
+}
+.rca-close-btn-container {
+  display: flex;
+  justify-content: flex-end;
+  padding: 4px 0px;
+}
+
+.rca-close-btn-container:hover {
+  color: #dc3545;
+  font-weight: 600;
+}
+
+.rca-info-body {
+  margin: 0 28px;
+}
+
+.rca-member-del {
+  color: #dc3545;
+}
+
+.rca-member-slab {
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2px 5px;
+  border-bottom: 1px solid #242424;
+}
+
+.rca-h3 {
+  font-size: 20pt;
+  font-weight: 700;
 }
 
 .like {
@@ -293,6 +325,30 @@ code {
   border-radius: 4px;
   background-color: #f9f9f9;
   height: 500px;
+}
+
+.rca-info-icon {
+  border: 1px solid black;
+  font-size: 16pt;
+  margin: 0 6px;
+}
+
+.rca-info-container {
+  display: flex;
+  width: 100%;
+  padding: 0 10px;
+  margin: 0 10px;
+}
+
+.rca-info-content {
+  height: 250px;
+  border: 1px solid black;
+  display: flex;
+  width: calc(100% - 45px);
+  padding: 0 10px;
+  position: absolute;
+  background-color: #f5f5f5;
+  flex-direction: column;
 }
 
 .chat-message {
