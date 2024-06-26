@@ -100,7 +100,7 @@ function ChatPage() {
             Back
           </Button>
         </div>
-        {groupId ? `Group Chat: ${groupId}` : "Group Chat"}
+        {groupId ? `${groupId}` : "Group Chat"}
         {addUser ? (
           <div className="rca-fe-db-header-btn">
             <Button
@@ -140,7 +140,7 @@ function ChatPage() {
 
           {filteredUsers.length > 0 && (
             <div className="user-list">
-              {filteredUsers.map((user) => (
+              {filteredUsers.map((user, key) => (
                 <div
                   key={user._id}
                   className="user-item"
@@ -159,8 +159,36 @@ function ChatPage() {
       <div className="chat-container">
         <div className="chat-history">
           {messages.map((msg, index) => (
-            <div key={index} className="chat-message">
-              <strong>{msg.username}:</strong> {msg.message}
+            <div className="chat-body">
+              <div key={index} className={`chat-message `}>
+                <div
+                  className={`chat-body ${
+                    localStorage.getItem("username") === msg.username
+                      ? "user-chat"
+                      : "other-chat"
+                  }`}
+                >
+                  <span
+                    className={`user ${
+                      localStorage.getItem("username") === msg.username
+                        ? "user-right"
+                        : "client-left"
+                    }`}
+                  >
+                    {msg.username}
+                  </span>
+                  <span className="divider">:</span>
+                  <span
+                    className={`msg ${
+                      localStorage.getItem("username") === msg.username
+                        ? "user-left"
+                        : "client-right"
+                    }`}
+                  >
+                    {msg.message}
+                  </span>
+                </div>
+              </div>
             </div>
           ))}
         </div>
