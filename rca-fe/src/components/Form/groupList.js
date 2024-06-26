@@ -74,12 +74,16 @@ const GroupList = () => {
     } else {
       if (needAccess) {
         return (
-          <Button
-            variant="outline-success"
-            onClick={() => handleRequest(groupId, currentOwner)}
-          >
-            Request
-          </Button>
+          <>
+            {!members?.includes(currentOwner) ? (
+              <Button
+                variant="outline-success"
+                onClick={() => handleRequest(groupId, currentOwner)}
+              >
+                Request
+              </Button>
+            ) : null}
+          </>
         );
       } else {
         return (
@@ -108,7 +112,7 @@ const GroupList = () => {
     <div className="rca-card-container">
       <div className="rca-card-channel-title">
         <h2>Channels</h2>
-        <AlertComponent  />
+        <AlertComponent />
       </div>
       <div className="rca-card-content">
         {groups.map((group) => (
@@ -125,11 +129,6 @@ const GroupList = () => {
             <div className="rca-card-cell-icon">{group.owner[0]}</div>
             <div className="rca-card-cell-body">
               {group.name}-{group.owner}-{group.grpType}
-            </div>
-            <div>
-              {group.members?.includes(localStorage.getItem("username"))
-                ? console.log("yes")
-                : console.log("No")}
             </div>
             <div className="rca-card-cell-btn">
               {renderButton(

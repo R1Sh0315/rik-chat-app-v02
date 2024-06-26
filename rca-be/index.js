@@ -195,6 +195,39 @@ app.get("/groups/requests/:owner", async (req, res) => {
   }
 });
 
+// POST endpoint to accept membership request
+app.post("/groups/accept-request", async (req, res) => {
+  const { groupId, username } = req.body;
+
+  try {
+    const group = await Group.findById(groupId);
+
+    if (!group) {
+      return res.status(404).json({ message: "Group not found" });
+    }
+
+    // Add the username to the group's members list
+    group.members.push(username);
+
+    // Remove the request from the group's requests list
+
+
+    group.requests = group.requests.filter((request) => {
+      request !== username;
+    });
+
+    // Save the updated group
+    await group.save();
+
+    res.status(200).json({
+      message: "Membership request accepted and removed from requests list",
+    });
+  } catch (error) {
+    console.error("Error accepting membership request:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 // Endpoint to fetch chat history
 app.get("/groups/:groupId/messages", async (req, res) => {
   const { groupId } = req.params;

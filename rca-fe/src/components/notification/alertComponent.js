@@ -42,8 +42,34 @@ function AlertComponent() {
   }, [username]);
 
   const onClickHandler = () => {
-    requestData.map((el) => console.log(">>>>", el));
+    // requestData.map((el) => console.log(">>>>", el));
     setDisplay(!toDisplay);
+  };
+
+  const acceptMembership = async (groupId, requestUsername) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/groups/accept-request",
+        {
+          groupId,
+          username: requestUsername,
+        }
+      );
+
+      console.log(response.data);
+
+      // Remove the accepted request from the requestData state
+      setRequestData((prevData) =>
+        prevData.filter(
+          (request) =>
+            !(
+              request.groupId === groupId && request.request === requestUsername
+            )
+        )
+      );
+    } catch (error) {
+      console.error("Error accepting membership:", error);
+    }
   };
 
   return (
@@ -65,7 +91,7 @@ function AlertComponent() {
                 {el.request} Requesting permission for {el.groupName}
               </div>
               <Button
-                // onClick={() => navigate("/group-form")}
+                onClick={() => acceptMembership(el.groupId, el.request)}
                 className="alert-accept-btn"
                 variant="outline-success"
               >
