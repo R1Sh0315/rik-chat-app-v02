@@ -46,4 +46,5 @@ Step III : `npm run dev` will run back-end
 
 ![Screenshot from 2024-06-27 09-12-28](https://github.com/R1Sh0315/rik-chat-app-v02/assets/52277260/e668e09f-91cc-42d2-a313-812fb6741324)
 
+![Screenshot from 2024-06-27 09-13-25](https://github.com/R1Sh0315/rik-chat-app-v02/assets/52277260/78e8efd2-d965-4242-b0b2-07e274830120)
 
