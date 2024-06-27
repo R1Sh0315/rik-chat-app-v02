@@ -7,17 +7,17 @@ Clone repo to local
 `git clone https://github.com/R1Sh0315/rik-chat-app-v02.git`
 
 # To Start with Frontend 
-Step I   : `cd rca/rca-fe`
-Step II  : `npm i` will install all dependency
-Step III : `npm start` will run front-end
+Step I   : `cd rca/rca-fe` .
+Step II  : `npm i` will install all dependency .
+Step III : `npm start` will run front-end.
 
 ![Screenshot from 2024-06-27 08-56-50](https://github.com/R1Sh0315/rik-chat-app-v02/assets/52277260/0aa6b66d-1069-4d96-a457-f2830f048d33)
 
 
 #to Start with Backend 
-Step I   : `cd rca/rca-be`
-Step II  : `npm i` will install all dependency
-Step III : `npm run dev` will run back-end
+Step I   : `cd rca/rca-be` .
+Step II  : `npm i` will install all dependency.
+Step III : `npm run dev` will run back-end.
 
 ![Screenshot from 2024-06-27 08-57-17](https://github.com/R1Sh0315/rik-chat-app-v02/assets/52277260/21fded3a-e0c5-403e-a6fe-0247dbe312db)
 
