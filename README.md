@@ -19,6 +19,7 @@ Step I   : `cd rca/rca-be`
 Step II  : `npm i` will install all dependency
 Step III : `npm run dev` will run back-end
 
+![Screenshot from 2024-06-27 08-57-17](https://github.com/R1Sh0315/rik-chat-app-v02/assets/52277260/21fded3a-e0c5-403e-a6fe-0247dbe312db)
 
 
 
@@ -41,3 +42,6 @@ Step III : `npm run dev` will run back-end
 - [ ] Hosting
 
 ## Snapshot
+![Screenshot from 2024-06-27 09-11-52](https://github.com/R1Sh0315/rik-chat-app-v02/assets/52277260/444a08f1-bbf0-4f74-b9f0-09953bbde3ae)
+
+
