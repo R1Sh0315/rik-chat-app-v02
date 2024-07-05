@@ -1,11 +1,5 @@
 {
   "version": 2,
-  "builds": [
-    { "src": "rca-fe/package.json", "use": "@vercel/static-build", "config": { "distDir": "build" } },
-    { "src": "rca-be/index.js", "use": "@vercel/node" }
-  ],
-  "routes": [
-    { "src": "/api/(.*)", "dest": "/rca-be/index.js" },
-    { "src": "/(.*)", "dest": "/rca-fe/$1" }
-  ]
+  "builds": [{ "src": "./index.js", "use": "@vercel/node" }],
+  "routes": [{ "src": "/(.*)", "dest": "./index.mjs" }]
 }
