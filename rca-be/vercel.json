@@ -1,5 +1,20 @@
 {
   "version": 2,
-  "builds": [{ "src": "./index.js", "use": "@vercel/node" }],
-  "routes": [{ "src": "/(.*)", "dest": "./index.mjs" }]
+  "builds": [{ "src": "index.js", "use": "@vercel/node" }],
+  "routes": [
+    { "src": "/signup", "dest": "index.js" },
+    { "src": "/login", "dest": "index.js" },
+    { "src": "/groups", "dest": "index.js" },
+    { "src": "/groups/join", "dest": "index.js" },
+    { "src": "/groups/request", "dest": "index.js" },
+    { "src": "/groups/requests/:owner", "dest": "index.js" },
+    { "src": "/groups/accept-request", "dest": "index.js" },
+    { "src": "/groups/add-member", "dest": "index.js" },
+    { "src": "/users/search", "dest": "index.js" },
+    { "src": "/groups/:groupId/messages", "dest": "index.js" },
+    { "src": "/messages/:messageId/like", "dest": "index.js" },
+    { "src": "/groups/remove-member", "dest": "index.js" },
+    { "src": "/groups/:groupId/members", "dest": "index.js" },
+    { "src": "/(.*)", "dest": "index.js" }
+  ]
 }
