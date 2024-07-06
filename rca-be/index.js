@@ -47,7 +47,7 @@ const JWT_SECRET = generateJWTSecret();
 // const mongoURI = process.env.MONGO_URI;
 mongoose
   .connect(
-    "mongodb+srv://rca-db:dxlsJkqDEn97rbV7@rca-cluster-01.gv1rhud.mongodb.net/"
+    "mongodb+srv://rca-db:dxlsJkqDEn97rbV7@rca-cluster-01.gv1rhud.mongodb.net/",
   )
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("Error connecting to MongoDB", err));
@@ -78,7 +78,7 @@ app.post("/signup", async (req, res) => {
     await user.save();
     res.status(201).send("User registered successfully");
   } catch (error) {
-    res.status(400).send("Error registering user");
+    res.status(400).send(`Error registering user. Error: ${error}`);
   }
 });
 
@@ -253,7 +253,7 @@ app.get("/users/search", async (req, res) => {
 
   try {
     const users = await User.find({ username: new RegExp(query, "i") }).select(
-      "username"
+      "username",
     ); // Adjust this query based on your user schema
     res.status(200).json(users);
   } catch (error) {
